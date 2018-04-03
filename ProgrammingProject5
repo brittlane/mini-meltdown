@@ -334,5 +334,76 @@ public class Auto implements CarbonFootprint {
 }
 
 
+package programmingProject5;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+
+public class MainTester {
+
+	public MainTester() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+	FileWriterClass fwc = new FileWriterClass();
+	fwc.writeFile();
+	fwc.readFile();
+	
+	Food food1, food2, food3;
+	food1 = new Food();
+	food2 = new Food();
+	food3 = new Food();
+	Auto auto = new Auto();
+	Auto auto2 = new Auto();
+	Auto auto3 = new Auto();
+	Home home = new Home();
+	Home home2 = new Home();
+	Home home3 = new Home();
+	
+	
+	
+	ArrayList<CarbonFootprint> emissionArray = new ArrayList<CarbonFootprint>();
+	
+	food1.setCategory("Dairy");
+	food2.setCategory("Meat, Fish, Eggs");
+	food3.setCategory("Eating out");
+	
+	auto.setCategory("Vehicles");
+	auto2.setCategory("Air Travel");
+	auto3.setCategory("Public Transportation");
+	
+	home.setCategory("Electricity");
+	home2.setCategory("Fuel Oil");
+	home3.setCategory("Propane");
+
+	
+	
+	
+	emissionArray.add(food1);
+	emissionArray.add(food2);
+	emissionArray.add(food3);
+	
+	emissionArray.add(auto);
+	emissionArray.add(auto2);
+	emissionArray.add(auto3);
+	
+	emissionArray.add(home);
+	emissionArray.add(home2);
+	emissionArray.add(home3);
+	
+	
+	
+
+
+	}
+
+}
+
 
 
