@@ -1,1 +1,338 @@
+package programmingProject5;
+
+public interface CarbonFootprint {
+	
+	double getCarbonFootprint(double f);
+
+}
+
+
+
+
+
+package programmingProject5;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriterClass {
+	private String Meat_Fish_Eggs  = "1452";
+	private String Cereals_Bakeries= "741";
+	private String Dairy = "1911";
+	private String Fruits_Veggies  = "1176";
+	private String Eatingout = "368";
+	private String Otherfoods = "467";
+	
+	String [][] electricity = {{"2.76"}, {"0.20"}};
+	String [][] natural = {{"14.14"}, {"120.61"}};
+	String [][] fuel = {{"2.88"}, {"22.37"}};
+	String [][] propane = {{"2.76"}, {"12.17"}};
+	
+	String [][] vehicles = {{"19.4"}, {"1.05"}};
+	String [][] tran = {{"19.4"}, {"1.05"}};
+	String [][] air= {{"223"}, {"1.2,1.9"}};
+
+	
+	
+	
+	double conversion = .0022;
+
+	
+	public FileWriterClass() {
+		// TODO Auto-generated constructor stub
+	}
+	
+		public void writeFile(){
+			FileWriter file;
+			try {
+				file = new FileWriter("carbon.txt");
+				BufferedWriter bw = new BufferedWriter(file);
+				
+	bw.write("Household Energy:\n");
+				
+				
+				bw.write("Electricty:\t"+ electricity[0][0] +" "+ electricity[1][0] + "\n");
+				
+				
+				bw.write("Natural Gas:\t" + natural[0][0] +" "+ natural[1][0]+ "\n");
+				
+			
+					bw.write("Fuel Oil:\t"+ fuel[0][0] +" "+fuel[1][0] +"\n" );
+					
+					
+					bw.write("Propane:\t" + propane[0][0]+" "+ propane[1][0] + "\n");
+					
+					
+					
+					
+					
+					
+					bw.write("Food Energy:\n");
+					
+					
+					bw.write("Meat, Fish, Eggs:\t"+ Meat_Fish_Eggs + "\n");
+					
+					
+					bw.write("Cereals and Bakeries:\t" + Cereals_Bakeries + "\n");
+					
+				
+						bw.write("Dairy:\t"+ Dairy + "\n" );
+						
+						
+						bw.write("Fruits and Veggies:\t" + Fruits_Veggies + "\n");
+						
+						
+						bw.write("Eating Out:\t" + Eatingout + "\n");
+						
+					
+						bw.write("Other Foods:\t" + Otherfoods + "\n");
+			
+
+						
+						//change the variables 
+						
+						bw.write("Transportation:\n");
+						
+						
+						bw.write("Vehicles:\t"+ vehicles[0][0] + " "+ vehicles[1][0]+ "\n");
+						
+						
+						bw.write("Air Travel:\t" + air[0][0]+ " "+ air[1][0] + "\n");
+						
+					
+							bw.write("Public Transportation:\t"+ tran[0][0]+ " " + tran[1][0]+"\n" );
+							
+		
+			
+
+			
+			
+			bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		public void readFile(){
+			try {
+				String category = "carbon.txt";
+				String output = null;
+				FileReader file = new FileReader(category);
+				BufferedReader br = new BufferedReader(file);
+				
+				while((output = br.readLine()) != null){
+					System.out.println(" " + output);
+					
+				}
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		
+	}
+
+package programmingProject5;
+
+public class Home implements CarbonFootprint {
+	private String category;
+	private double electricity = 2.76;
+	private double natural= 14.14;
+	private double oil = 2.88;
+	private double propane = 2.76;
+	private double emissionFactor;
+
+	private String home;
+	private String fuel;
+	private double cost1 = 0.20;
+    private double cost2 = 120.61;
+    private double cost3 = 12.17;
+	
+	FileWriterClass fwc = new FileWriterClass();
+
+	public Home() {
+		// TODO Auto-generated constructor stub
+		
+		
+	}
+
+	@Override
+	public double getCarbonFootprint(double f) {
+	
+		return f;
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getHome() {
+		return home;
+	}
+
+	public void setHome(String home) {
+		this.home = home;
+	}
+
+	public String getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(String fuel) {
+		this.fuel = fuel;
+	}
+
+
+	public double emission(){
+		if(getCategory().equals("Natural Gas")|| getCategory().equals("natural gas")){
+			emissionFactor = natural;
+		}
+		if(getCategory().equals("Eletricity")|| getCategory().equals("electricity")){
+			emissionFactor = electricity;
+		}
+		if(getCategory().equals("Fuel Oil")|| getCategory().equals("fuel oil")){
+			emissionFactor = oil;
+		}
+		if(getCategory().equals("Propane")|| getCategory().equals("propane")){
+			emissionFactor = propane;
+		}
+	
+		return emissionFactor;
+	}
+	
+	
+	
+
+}
+package programmingProject5;
+
+import java.util.Scanner;
+
+public class Food implements CarbonFootprint {
+	
+	FileWriterClass fwc = new FileWriterClass();
+	
+	private int Meat_Fish_Eggs  = 1452;
+	private int Cereals_Bakeries= 741;
+	private int Dairy = 1911;
+	private int Fruits_Veggies  = 1176;
+	private int Eatingout = 368;
+	private int Otherfoods = 467;
+	private double conversion = .0022;
+	
+	Scanner keyboard = new Scanner(System.in);
+	private int emissionFactor;
+	private double cost;
+	private int months;
+	private String Category;
+
+	public Food() {
+		// TODO Auto-generated constructor stub
+		
+	}
+
+	@Override
+	public double getCarbonFootprint(double f) {
+		// TODO Auto-generated method stub
+		
+		f =  cost * emissionFactor * months * conversion;
+		return f;
+	}
+
+	public String getCategory() {
+		return Category;
+	}
+
+	public void setCategory(String category) {
+		
+		
+		Category = category;
+	}
+
+	public int Emission(){
+		
+		if(getCategory().equals("Meat, Fish, Eggs")|| getCategory().equals("Meat Fish Eggs")){
+			emissionFactor = Meat_Fish_Eggs;
+		}
+		if(getCategory().equals("Dairy")|| getCategory().equals("dairy")){
+			emissionFactor = Dairy;
+		}
+		if(getCategory().equals("Cereals and Bakeries")|| getCategory().equals("cereals and bakeries")){
+			emissionFactor = Cereals_Bakeries;
+		}
+		if(getCategory().equals("Eating Out")|| getCategory().equals("eating out")){
+			emissionFactor = Eatingout;
+		}
+		
+		if(getCategory().equals("Fruits and Veggies")|| getCategory().equals("fruits and veggies")){
+			emissionFactor = Fruits_Veggies;
+		}
+		
+		if(getCategory().equals("Other Foods")|| getCategory().equals("other foods")){
+			emissionFactor = Otherfoods;
+		}
+		
+		return emissionFactor;
+	}
+	
+}
+package programmingProject5;
+
+public class Auto implements CarbonFootprint {
+	FileWriterClass fwc = new FileWriterClass();
+	private String category;
+	double emissionFactor;
+	
+	 private double vehicles = 19.4;
+	 private double air = 223; 
+	 private double transportation = 19.4;
+	 
+	 private double vehicleemission = 1.05;
+	 private double well_to_pump = 1.2;
+	 private double atmosphere = 1.9;
+	 
+
+	public Auto() {
+		// TODO Auto-generated constructor stub
+		
+	
+	}
+
+	@Override
+	public double getCarbonFootprint(double f) {
+		// TODO Auto-generated method stub
+		
+		
+		return 0;
+	}
+	
+	public void setCategory(String category){
+		this.category = category;
+	}
+	
+	public String getCategory(){
+		return category;
+	}
+	
+	public double emissions(){
+	
+	return emissionFactor;
+	}
+
+}
+
+
+
 
