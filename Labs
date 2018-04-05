@@ -1,1 +1,55 @@
 
+    private String sentence = null;
+	private String phrase = null;
+	private ArrayList <String> bs = new ArrayList<String>();
+	private char answer,st;
+	Scanner keyboard = new Scanner(System.in);
+
+	public Sentence() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getSentence() {
+		return sentence;
+	}
+
+	public void setSentence(String sentence) {
+		this.sentence = sentence;
+	}
+
+
+
+	public boolean find(String s){
+	
+	if(s.equals(phrase)){
+		
+	}
+		
+
+		
+		
+		
+		
+	     
+		
+		return true;
+	}
+    
+    
+    
+    
+    
+    
+    Sentence sentence = new Sentence();
+      
+      Scanner keyboard = new Scanner(System.in);
+      Random rand = new Random ();
+      String phrase, find, st; 
+      
+    st  = keyboard.next();
+      
+      
+      
+      
+      sentence.find(st);
+      
