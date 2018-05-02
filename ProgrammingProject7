@@ -1,0 +1,249 @@
+package project7;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Student {
+
+	private static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+
+	private static final String protocol = "jdbc:derby:";
+
+	public Student() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void CreateDatabase() {
+
+		try
+
+		{
+
+			Class.forName(driver).newInstance();
+
+			System.out.println("Loaded the embedded driver.");
+
+		}
+
+		catch (Exception err) // Must catch ClassNotFoundException,
+								// InstantiationException,
+								// IllegalAccessException
+
+		{
+
+			System.err.println("Unable to load the embedded driver.");
+
+			err.printStackTrace(System.err);
+
+			System.exit(0);
+
+		}
+
+		// Create a new database and connect to it
+
+		// In the connection string we could also supply a username and password
+
+		// if applicable by adding "user=username;password=dbuserpwd".
+
+		// This will create a folder named "BookDatabase" in the
+
+		// program's directory that contains the database files
+
+		String dbName = "GradeBookDatabase";
+
+		Connection conn = null;
+
+		try
+
+		{
+
+			System.out.println("Connecting to and creating the database...");
+
+			conn = DriverManager.getConnection(protocol + dbName
+					+ ";create=true");
+
+			System.out.println("Database created.");
+
+			// Create a statement object for running SQL statements
+
+			Statement s = conn.createStatement();
+
+			// Create a table named "names" with three fields.
+
+			// One is for student name, which holds a string up to 50 characters.
+
+			// student _id is a numeric ID number for each student.
+
+			// assignment is a varchar, which is a String that holds 80 characters
+			// grade  is a int, which holds the student's grade
+
+			s.execute("CREATE TABLE student" +
+
+			"(sname varchar(50), student_id int, assignment varchar(50), grade int)");
+
+			System.out.println("Created 'student' table.");
+
+			// Add some sample data. Would be more efficient to use
+			// prepareStatement
+
+			// but leave off for simplicity
+
+			System.out.println("Inserting students.");
+
+			s.execute("INSERT INTO student " +
+
+			"VALUES ('Lissa Jones', 101, 'Quest 1', 98)");
+
+			s.execute("INSERT INTO student " +
+
+			"VALUES ('Ester Dash', 121, 'Quest 4', 65)");
+
+			s.execute("INSERT INTO student " +
+
+			"VALUES ('Lucina Madina', 123, 'Quest 2', 84)");
+
+			System.out.println("Students Inserted.");
+
+			conn.close();
+
+		}
+
+		catch (SQLException err)
+
+		{
+
+			System.err.println("SQL error.");
+
+			err.printStackTrace(System.err);
+
+			System.exit(0);
+
+		}
+	 
+	}
+	
+	   public static void displayNameRecord(ResultSet rs) throws SQLException 
+
+	    { 
+
+	        int id = rs.getInt("student_id"); 
+
+	        String sname = rs.getString("sname"); 
+
+	        String assignment= rs.getString("assignment"); 
+
+	        int gr = rs.getInt("grade"); 
+
+	        System.out.println("Student ID = " + id + ", Name = " 
+
+	                + sname + ", Assignment = " + assignment + ",Grade" + gr); 
+
+	    } 
+	   
+	   public void displayGrade(){ 
+
+	        try 
+
+	        { 
+
+	            Class.forName(driver).newInstance(); 
+
+	            System.out.println("Loaded the embedded driver."); 
+
+	        } 
+
+	        catch (Exception err) 
+
+	        { 
+
+	            System.err.println("Unable to load the embedded driver."); 
+
+	            err.printStackTrace(System.err); 
+
+	            System.exit(0); 
+
+	        } 
+
+	  
+
+	        String dbName = "GradeBookDatabase"; 
+
+	        Connection conn = null; 
+
+	        try 
+
+	        { 
+
+	            System.out.println("Connecting to the database..."); 
+
+	            conn = DriverManager.getConnection(protocol + dbName); 
+
+	            System.out.println("Connected."); 
+
+	  
+
+	            Statement s = conn.createStatement(); 
+
+	  
+
+	            ResultSet rs = null; 
+
+	            System.out.println("All students:"); 
+
+	            rs = s.executeQuery("SELECT sname, student_id, assignment, grade FROM student"); 
+
+	            while( rs.next() ) 
+
+	            { 
+
+	                displayNameRecord(rs); 
+
+	            } 
+
+	            rs.close(); 
+
+	  
+
+	           
+	          
+
+	        } 
+
+	        catch (SQLException err) 
+
+	        { 
+
+	            System.err.println("SQL error."); 
+
+	            err.printStackTrace(System.err); 
+
+	            System.exit(0); 
+
+	        } 
+
+	    } 
+
+}
+
+
+package project7;
+
+public class GradeBookTester {
+
+	public GradeBookTester() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Student student = new Student();
+		
+		student.CreateDatabase();
+		
+	}
+
+}
